@@ -118,6 +118,7 @@ public class PlayerCombatController : MonoBehaviour
             currentHealth -= attackDetails[0];
             int direction;
             hitPause.Pause();
+            Health.instance.SetHealth(currentHealth);
             HealthManager.instance.SetHealth(currentHealth);
 
             if (attackDetails[1] < transform.position.x)
