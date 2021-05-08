@@ -39,6 +39,14 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			cm.CheatAllSouls();
         }
+
+		if (Input.GetButtonDown("Dash"))
+		{
+			if (Time.time >= (controller.lastDash + controller.dashCooldown))
+			{
+				controller.Dash();
+			}
+		}
 	}
 
 	public void OnLanding ()

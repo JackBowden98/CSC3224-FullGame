@@ -8,7 +8,10 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
-	[SerializeField] private Transform m_FrontCheck;							// A position marking where to check for walls
+	[SerializeField] private Transform m_FrontCheck;                            // A position marking where to check for walls
+
+	public PlayerCombatController combatController;
+	public Stamina staminaController;
 
 	const float k_GroundedRadius = .2f;		// Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;				// Whether or not the player is grounded.
@@ -34,6 +37,15 @@ public class CharacterController2D : MonoBehaviour
 	private bool m_FacingRight = true;
 	private int facingDirection = 1;
 	private Vector3 m_Velocity = Vector3.zero;
+
+	private bool isDashing;
+	public float dashSpeed;
+	public float dashImageSpacing;
+	public float dashTime;
+	private float dashTimeLeft;
+	private float lastImagePos;
+	public float lastDash = -100;
+	public float dashCooldown;
 
 	private bool knockback;
     private float knockbackStartTime;
@@ -68,6 +80,7 @@ public class CharacterController2D : MonoBehaviour
     private void Update()
     {
 		CheckKnockback();
+		CheckDash();
 	}
 
     private void FixedUpdate()
@@ -112,7 +125,7 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, bool jump)
 	{
 		//only control the player if grounded or airControl is turned on
-		if (m_Grounded || m_AirControl && !knockback)
+		if (m_Grounded || m_AirControl && !knockback && !isDashing)
 		{
 			// Move the character by finding the target velocity
 			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
@@ -161,6 +174,43 @@ public class CharacterController2D : MonoBehaviour
 			falling = true;
         }
 	}
+
+	private void CheckDash()
+    {
+		if (isDashing)
+        {
+			if (dashTimeLeft > 0)
+            {
+				m_Rigidbody2D.velocity = new Vector2(dashSpeed * facingDirection, 0);
+				dashTimeLeft -= Time.deltaTime;
+
+				if (Mathf.Abs(transform.position.x - lastImagePos) > dashImageSpacing)
+				{
+					DashMotionPool.Instance.GetFromPool();
+					lastImagePos = transform.position.x;
+				}
+			}
+
+			if (dashTimeLeft <= 0 || isTouchingFront)
+            {
+				isDashing = false;
+				combatController.isDashing = false;
+			}
+		}
+    }
+
+	public void Dash()
+    {
+		isDashing = true;
+		combatController.isDashing = true;
+		dashTimeLeft = dashTime;
+		lastDash = Time.time;
+
+		staminaController.stamina = 0;
+
+		DashMotionPool.Instance.GetFromPool();
+		lastImagePos = transform.position.x;
+    }
 
 	public void KnockBack(int direction)
     {

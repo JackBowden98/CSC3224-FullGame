@@ -16,6 +16,7 @@ public class PlayerCombatController : MonoBehaviour
 
     // if there is an iput and is attacking
     private bool gotInput, isAttacking;
+    public bool isDashing;
 
     // the parameters passed to the object being damaged
     private float[] attackDetails = new float[2];
@@ -112,7 +113,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void Damage(float[] attackDetails)
     {
-        if (!invincible)
+        if (!invincible && !isDashing)
         {
             currentHealth -= attackDetails[0];
             int direction;

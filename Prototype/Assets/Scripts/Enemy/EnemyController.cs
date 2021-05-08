@@ -13,10 +13,10 @@ public class EnemyController : MonoBehaviour
 
     private State currentState;
 
-    [SerializeField] private Transform groundCheck, wallCheck;
+    [SerializeField] private Transform groundCheck, wallCheck, upsideDownCheck;
     [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private float groundCheckDistance, wallCheckDistance;
-    private bool groundDetected, wallDetected;
+    [SerializeField] private float groundCheckDistance, wallCheckDistance, upsideDownCheckDistance;
+    private bool groundDetected, wallDetected, upsideDownDetected;
 
     private Rigidbody2D rb;
 
@@ -81,6 +81,7 @@ public class EnemyController : MonoBehaviour
     {
         groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
         wallDetected = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
+        upsideDownDetected = Physics2D.Raycast(upsideDownCheck.position, transform.up, upsideDownCheckDistance, whatIsGround);
 
         CheckApplyDamage();
 
@@ -88,7 +89,7 @@ public class EnemyController : MonoBehaviour
         {
             Flip();
         }
-        else
+        else if ( !upsideDownDetected)
         {
             movement.Set(movementSpeed * facingDirection, rb.velocity.y);
             rb.velocity = movement;
@@ -107,6 +108,7 @@ public class EnemyController : MonoBehaviour
         knockbackStartTime = Time.time;
         movement.Set(knockbackSpeed.x * damageDirection, knockbackSpeed.y);
         rb.velocity = movement;
+        rb.angularVelocity = 300f;
         anim.SetBool("Knockback", true);
     }
 
@@ -239,6 +241,7 @@ public class EnemyController : MonoBehaviour
     {
         Gizmos.DrawLine(groundCheck.position, new Vector2(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
         Gizmos.DrawLine(wallCheck.position, new Vector2(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+        Gizmos.DrawLine(upsideDownCheck.position, new Vector2(upsideDownCheck.position.x, upsideDownCheck.position.y + upsideDownCheckDistance));
 
         Vector2 botLeft = new Vector2(applyDamageCheck.position.x - (applyDamageWidth / 2), applyDamageCheck.position.y - (applyDamageHeight / 2));
         Vector2 botRight = new Vector2(applyDamageCheck.position.x + (applyDamageWidth / 2), applyDamageCheck.position.y - (applyDamageHeight / 2));
