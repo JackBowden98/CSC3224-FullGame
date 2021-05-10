@@ -127,7 +127,7 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, bool jump)
 	{
 		//what allows control of the player
-		if (!isDashing && m_AirControl && !knockback  && !combatController.isAttacking)
+		if (m_Grounded || !isDashing && m_AirControl && !knockback  && !combatController.isAttacking)
 		{
 			// Move the character by finding the target velocity
 			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
