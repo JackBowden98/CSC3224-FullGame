@@ -15,7 +15,8 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField] private LayerMask m_WhatIsDamagable;
 
     // if there is an iput and is attacking
-    private bool gotInput, isAttacking;
+    private bool gotInput;
+    public bool isAttacking;
     public bool isDashing;
 
     // the parameters passed to the object being damaged
