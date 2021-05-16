@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour {
 	public DevTools devTools;
 	public Animator animator;
 
+	
+
 	public float runSpeed = 40f;
 
 	float horizontalMove = 0f;
@@ -15,9 +17,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public CollectableManager cm;
 
-
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
 
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
@@ -60,6 +61,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void OnSliding()
 	{
+		Debug.Log("sliding!");
 		animator.SetBool("IsSliding", true);
 		animator.SetBool("IsJumping", false);
 		animator.SetBool("IsFalling", false);

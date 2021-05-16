@@ -33,10 +33,16 @@ public class CharacterController2D : MonoBehaviour
 	public float yWallForce;
 	public float wallJumpForceDuration;
 
-	private Rigidbody2D m_Rigidbody2D;
+	public Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;
 	private int facingDirection = 1;
 	private Vector3 m_Velocity = Vector3.zero;
+
+	public ParticleSystem footsteps;
+	private ParticleSystem.EmissionModule footEmission;
+	private ParticleSystem.VelocityOverLifetimeModule footOverTime;
+
+	public ParticleSystem dustImpact;
 
 	private bool isDashing;
 	public float dashSpeed;
@@ -68,6 +74,9 @@ public class CharacterController2D : MonoBehaviour
 	{
 		Time.timeScale = 1;
 
+		footEmission = footsteps.emission;
+		footOverTime = footsteps.velocityOverLifetime;
+
 		m_AirControl = true;
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
@@ -81,6 +90,12 @@ public class CharacterController2D : MonoBehaviour
 
     private void Update()
     {
+		if (Input.GetButtonUp("Jump") && m_Rigidbody2D.velocity.y > 0)
+		{
+			m_Grounded = false;
+			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_Rigidbody2D.velocity.y * 0.5f);
+		}
+
 		CheckKnockback();
 		CheckDash();
 	}
@@ -88,6 +103,7 @@ public class CharacterController2D : MonoBehaviour
     private void FixedUpdate()
 	{
 		bool wasGrounded = m_Grounded;
+		m_Grounded = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -99,16 +115,21 @@ public class CharacterController2D : MonoBehaviour
 				m_Grounded = true;
 				if (wasGrounded)
 				{
-					OnLandEvent.Invoke();
 					falling = false;
-				}
-            }
-            else
-            {
-			falling = true;
 
-            }
+					OnLandEvent.Invoke();
+				}
+				if (!wasGrounded)
+                {
+					// Impact effect when hitting ground
+					dustImpact.gameObject.SetActive(true);
+					dustImpact.Stop();
+					dustImpact.transform.position = footsteps.transform.position;
+					dustImpact.Play();
+                }
+			}
 		}
+		
 
 		bool wasTouchingWall = isTouchingFront;
 		isTouchingFront = false;
@@ -123,7 +144,10 @@ public class CharacterController2D : MonoBehaviour
 				if (!m_Grounded && isTouchingFront && Input.GetAxis("Horizontal") != 0)
                 {
 					if (!wasTouchingWall)
+					{
+						falling = false;
 						OnSlideEvent.Invoke();
+					}
 				}
 			}
 		}
@@ -133,8 +157,22 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, bool jump)
 	{
 		//what allows control of the player
-		if (m_Grounded || !isDashing && m_AirControl && !knockback  && !combatController.isAttacking)
+		if (m_Grounded || m_AirControl && !isDashing && !knockback  && !combatController.isAttacking)
 		{
+			if (move > 0)
+            {
+				footOverTime.x = -0.7f;
+				footEmission.rateOverTime = 10f;
+            }
+			else if (move < 0)
+            {
+				footOverTime.x = 0.7f;
+				footEmission.rateOverTime = 10f;
+			}
+            else
+            {
+				footEmission.rateOverTime = 0f;
+			}
 			// Move the character by finding the target velocity
 			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
@@ -143,27 +181,30 @@ public class CharacterController2D : MonoBehaviour
 			// If the input is moving the player right and the player is facing left...
 			if (move > 0 && !m_FacingRight)
 			{
-				// ... flip the player.
+				// flip the player.
 				Flip();
 			}
 			// Otherwise if the input is moving the player left and the player is facing right...
 			else if (move < 0 && m_FacingRight)
 			{
-				// ... flip the player.
+				// flip the player.
 				Flip();
 			}
-		}
+		}		
+	
 		if (!m_Grounded && isTouchingFront)
 		{
+			footEmission.rateOverTime = 0f;
 			m_WallSliding = true;
 			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, Mathf.Clamp(m_Rigidbody2D.velocity.y, -wallSlidingSpeed, float.MaxValue));
 		}
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
+			footEmission.rateOverTime = 0f;
 			// Add a vertical force to the player.
 			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
 		}
 		if (m_WallSliding && jump)
 		{
@@ -177,8 +218,10 @@ public class CharacterController2D : MonoBehaviour
 		{
 			m_Rigidbody2D.velocity = new Vector2(facingDirection * xWallForce, yWallForce);
 		}
-		else
-        {
+		if (!m_Grounded && !isTouchingFront && !m_WallSliding)
+		{
+			Debug.Log("falling!");
+			footEmission.rateOverTime = 0f;
 			falling = true;
         }
 	}
@@ -306,7 +349,8 @@ public class CharacterController2D : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		Gizmos.color = Color.blue;
+		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(m_FrontCheck.position, k_WallRadius);
+		Gizmos.DrawWireSphere(m_GroundCheck.position, k_GroundedRadius);
 	}
 }
