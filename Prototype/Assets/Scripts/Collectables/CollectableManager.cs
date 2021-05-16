@@ -34,6 +34,9 @@ public class CollectableManager : MonoBehaviour
         {
             souls = maxSouls;
             soulText.text = souls.ToString();
+        } else
+        {
+            cheatAllSouls = false;
         }
     }
 

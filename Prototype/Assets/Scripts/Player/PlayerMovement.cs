@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
 	public CharacterController2D controller;
+	public DevTools devTools;
 	public Animator animator;
 
 	public float runSpeed = 40f;
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour {
 			animator.SetBool("IsSliding", false);
 		}
 
-		if (Input.GetKeyDown("p"))
+		if (Input.GetKeyDown("p") && devTools.toolsShown)
 		{
 			cm.CheatAllSouls();
         }
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void OnLanding ()
 	{
+		Debug.Log("landed");
 		animator.SetBool("IsJumping", false);
 		animator.SetBool("IsSliding", false);
 		animator.SetBool("IsFalling", false);

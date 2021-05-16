@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1807522009308566987}
+  devTools: {fileID: 0}
   animator: {fileID: 1807522009308566991}
   runSpeed: 40
   cm: {fileID: 0}
@@ -440,6 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0d20a5ab79c2b4bb0f68bc220190be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  devTools: {fileID: 0}
   combatEnabled: 1
   inputTimer: 0.1
   attackDamage: 20

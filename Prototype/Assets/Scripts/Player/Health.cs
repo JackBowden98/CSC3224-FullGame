@@ -8,11 +8,15 @@ public class Health : MonoBehaviour
     public static Health instance;
     public Image healthBar;
 
-    public float health, maxHealth = 100;
+    [SerializeField] private Color maxColour;
+    [SerializeField] private Color minColour;
+
+    public float health, maxHealth;
     float lerpSpeed;
 
     void Start()
     {
+        maxHealth = PlayerCombatController.instance.getMaxHealth();
         health = maxHealth;
         if (instance == null)
         {
@@ -22,10 +26,6 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
-        if (health >= maxHealth)
-        {
-            health = maxHealth;
-        }
 
         lerpSpeed = 3f * Time.deltaTime;
 
@@ -40,7 +40,7 @@ public class Health : MonoBehaviour
     }
     void ColorChanger()
     {
-        Color StaminaColour = Color.Lerp(Color.red, Color.green, (health / maxHealth));
+        Color StaminaColour = Color.Lerp(minColour, maxColour, (health / maxHealth));
         healthBar.color = StaminaColour;
     }
 

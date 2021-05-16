@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour
 {
+    public DevTools devTools;
+    public static PlayerCombatController instance;
+
     // if combat is enabled
     [SerializeField] private bool combatEnabled;
     // time you can apply an input and attack damage
@@ -39,6 +42,11 @@ public class PlayerCombatController : MonoBehaviour
 
     private void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
         anim = GetComponent<Animator>();
         anim.SetBool("CanAttack", combatEnabled);
         cc = GetComponent<CharacterController2D>();
@@ -52,9 +60,9 @@ public class PlayerCombatController : MonoBehaviour
         CheckCombatInput();
         checkAttacks();
 
-        if (Input.GetKeyDown("o"))
+        if (Input.GetKeyDown("o") && devTools.toolsShown)
         {
-            MakeInvincible();
+            ToggleInvincible();
         }
     }
 
@@ -120,7 +128,6 @@ public class PlayerCombatController : MonoBehaviour
             int direction;
             hitPause.Pause();
             Health.instance.SetHealth(currentHealth);
-            HealthManager.instance.SetHealth(currentHealth);
 
             if (attackDetails[1] < transform.position.x)
             {
@@ -130,7 +137,7 @@ public class PlayerCombatController : MonoBehaviour
             {
                 direction = -1;
             }
-
+            System.Console.WriteLine(currentHealth);
             cc.KnockBack(direction);
 
             if (currentHealth <= 0.0f)
@@ -143,9 +150,26 @@ public class PlayerCombatController : MonoBehaviour
         }
     }
 
-    public void MakeInvincible()
+    public void ToggleInvincible()
     {
-        invincible = true;
+        invincible = !invincible;
+    }
+
+    public void Heal(float healValue)
+    {
+        currentHealth += healValue;
+
+        if (currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        Health.instance.SetHealth(currentHealth);
+    }
+
+    public float getMaxHealth()
+    {
+        return maxHealth;
     }
 
     private void OnDrawGizmos()
