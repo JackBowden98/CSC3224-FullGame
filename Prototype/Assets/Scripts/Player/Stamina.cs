@@ -15,7 +15,7 @@ public class Stamina : MonoBehaviour
         stamina = maxStamina;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (stamina >= maxStamina)
         {
@@ -25,10 +25,10 @@ public class Stamina : MonoBehaviour
         else
         {
             RingStaminaBar.enabled = true;
-            Heal(0.1f);
+            Heal(1.2f);
         }
 
-        lerpSpeed = 7f * Time.deltaTime;
+        lerpSpeed = 7f * Time.fixedDeltaTime;
 
         StaminaBarFiller();
         ColorChanger();
