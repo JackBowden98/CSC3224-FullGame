@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Text soulText;
+    [SerializeField] private Text timeText;
     private void Awake()
     {
         GameObject.FindGameObjectWithTag("ThemeMusic").GetComponent<MusicClass>().PlayMusic();
@@ -17,6 +18,17 @@ public class UIManager : MonoBehaviour
         {
             soulText.text = "Most Souls: 0";
         }
+
+        /*
+        if (PlayerPrefs.HasKey("BestSec"))
+        {
+            timeText.text = "Best Time: " + PlayerPrefs.GetInt("BestMin") + " : " + PlayerPrefs.GetInt("BestSec");
+        }
+        else
+        {
+            timeText.text = "Best Time : NA";
+        }
+        */
     }
     public void LoadLevel(string level)
     {

@@ -108,6 +108,17 @@ public class MushersBehaviour : MonoBehaviour
                 {
                     PlayerPrefs.SetInt("HighScore", CollectableManager.instance.souls);
                 }
+                 /*
+                if ((PlayerPrefs.GetInt("BestMin") > DevTools.instance.minutes))
+                {
+                    if ((PlayerPrefs.GetInt("BestSec") > DevTools.instance.seconds))
+                    {
+                        PlayerPrefs.SetInt("BestMin", DevTools.instance.minutes);
+                        PlayerPrefs.SetInt("BestSec", DevTools.instance.seconds);
+
+                    }
+                }
+                 */
                 Application.LoadLevel("Complete");
             }
         }

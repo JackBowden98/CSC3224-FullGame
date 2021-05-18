@@ -1360,6 +1360,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e5af355ef6f6ee40a72a6fff81d4765, type: 3}
+--- !u!1001 &390149346
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1008072514}
+    m_Modifications:
+    - target: {fileID: 2153105929648369831, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_Name
+      value: Heart (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 197.96
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.3591104
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277, type: 3}
+--- !u!4 &390149347 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2153105929648369852, guid: e26fcdd5c9e5a4c4983f2ebcc4db3277,
+    type: 3}
+  m_PrefabInstance: {fileID: 390149346}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &407752963
 GameObject:
   m_ObjectHideFlags: 0
@@ -2940,37 +3015,37 @@ MonoBehaviour:
   sounds:
   - name: Slash
     clip: {fileID: 8300000, guid: 3dbed2f0ebe83124ebed71be7a1a7c7b, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 0.7
     loop: 0
     source: {fileID: 0}
   - name: SwordHitMusher
     clip: {fileID: 8300000, guid: e4496782bb521ef449ddb83c8892c142, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: SwordHitTurtle
     clip: {fileID: 8300000, guid: e4496782bb521ef449ddb83c8892c142, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 3
     loop: 0
     source: {fileID: 0}
   - name: Theme
     clip: {fileID: 8300000, guid: cc0511a335a0f1d47ae59985165c750d, type: 3}
-    volume: 0.8
+    volume: 0.6
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: GemHit
     clip: {fileID: 8300000, guid: 483187f5693560b40af0c391b8fe0015, type: 3}
-    volume: 0.8
+    volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: GemBreak
     clip: {fileID: 8300000, guid: 279c870ef86e07740b8338ecc73e6f05, type: 3}
-    volume: 0.8
+    volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -3744,7 +3819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000398609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 175.24, y: -28.31, z: -10}
+  m_LocalPosition: {x: 174.6, y: -28.28, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 953249451}
@@ -3815,6 +3890,7 @@ Transform:
   - {fileID: 1746875408}
   - {fileID: 1323655783}
   - {fileID: 1841973384}
+  - {fileID: 390149347}
   m_Father: {fileID: 873010975}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -94666,6 +94742,8 @@ MonoBehaviour:
   tools: {fileID: 569760806}
   noOfObjects: {fileID: 2021415262}
   timePlayed: {fileID: 625932623}
+  minutes: 0
+  seconds: 0
   statsShown: 0
   toolsShown: 0
 --- !u!1 &1813485685
@@ -112694,12 +112772,12 @@ PrefabInstance:
     - target: {fileID: 1807522009308566985, guid: 5996092cb0d463d4385b49369266efa0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 175.24
+      value: 174.6
       objectReference: {fileID: 0}
     - target: {fileID: 1807522009308566985, guid: 5996092cb0d463d4385b49369266efa0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -27.23
+      value: -27.2
       objectReference: {fileID: 0}
     - target: {fileID: 1807522009308566985, guid: 5996092cb0d463d4385b49369266efa0,
         type: 3}

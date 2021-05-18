@@ -13,6 +13,8 @@ public class DevTools : MonoBehaviour
     [SerializeField] private Text noOfObjects;
     private float timer = 0.0f;
     [SerializeField] private Text timePlayed;
+    public int minutes;
+    public int seconds;
     public bool statsShown;
     public bool toolsShown;
 
@@ -39,8 +41,8 @@ public class DevTools : MonoBehaviour
         noOfObjects.text = "No.of objects: " + objCount;
 
         timer += Time.deltaTime;
-        int minutes = (int)(timer / 60);
-        int seconds = (int)(timer % 60);
+        minutes = (int)(timer / 60);
+        seconds = (int)(timer % 60);
         timePlayed.text = "Time Played: " + minutes + ":" + seconds; 
 
         if (Input.GetKeyDown("k"))
