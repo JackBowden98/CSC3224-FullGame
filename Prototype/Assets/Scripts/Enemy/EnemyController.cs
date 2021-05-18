@@ -156,7 +156,7 @@ public class EnemyController : MonoBehaviour
     {
         if (gameObject != null)
         {
-
+            FindObjectOfType<AudioManager>().Play("SwordHitTurtle");
             // 0 in the array is the amount of damage being recieved
             currentHealth -= attackDetails[0];
 
@@ -173,12 +173,12 @@ public class EnemyController : MonoBehaviour
             // enemy is still alive
             if (currentHealth > 0.0f)
             {
-                //hitPause.Pause();
+                hitPause.Pause();
                 SwitchState(State.Knockback);
             }
             else if (currentHealth <= 0.0f)
             {
-                hitPause.Pause();
+                //hitPause.Pause();
                 SwitchState(State.Dead);
             }
         }

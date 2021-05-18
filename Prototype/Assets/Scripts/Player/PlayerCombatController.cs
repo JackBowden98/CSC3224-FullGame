@@ -32,7 +32,6 @@ public class PlayerCombatController : MonoBehaviour
     bool invincible;
 
 
-
     // time of the last input
     private float lastInputTime = Mathf.NegativeInfinity;
 
@@ -46,6 +45,8 @@ public class PlayerCombatController : MonoBehaviour
         {
             instance = this;
         }
+
+        
 
         anim = GetComponent<Animator>();
         anim.SetBool("CanAttack", combatEnabled);
@@ -86,6 +87,7 @@ public class PlayerCombatController : MonoBehaviour
         {
             if (!isAttacking)
             {
+                FindObjectOfType<AudioManager>().Play("Slash");
                 gotInput = false;
                 isAttacking = true;
                 anim.SetBool("Attack", true);
@@ -101,6 +103,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void CheckAttackHitbox()
     {
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(m_HitCheck.position, k_HitRadius, m_WhatIsDamagable);
         attackDetails[0] = attackDamage;
         attackDetails[1] = transform.position.x;
@@ -142,7 +145,6 @@ public class PlayerCombatController : MonoBehaviour
 
             if (currentHealth <= 0.0f)
             {
-                hitPause.Pause();
                 string level = "Death";
                 // go to complete screen
                 Application.LoadLevel(level);

@@ -6,7 +6,15 @@ public class DeathBox : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        string level = "Death";
-        Application.LoadLevel(level);
+        if (collision.tag == "Player")
+        {
+            string level = "Death";
+            Application.LoadLevel(level);
+        }
+        else
+        {
+            Destroy(collision.gameObject);
+            CollectableManager.instance.IncrementScore(1);
+        }
     }
 }

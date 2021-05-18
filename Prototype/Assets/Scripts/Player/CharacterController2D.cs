@@ -13,7 +13,9 @@ public class CharacterController2D : MonoBehaviour
 	public PlayerCombatController combatController;
 	public Stamina staminaController;
 
-	const float k_GroundedRadius = .2f;		// Radius of the overlap circle to determine if grounded
+	public SpriteRenderer sr;
+
+	const float k_GroundedRadius = .3f;		// Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;				// Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f;      // Radius of the overlap circle to determine if the player can stand up
 
@@ -44,6 +46,7 @@ public class CharacterController2D : MonoBehaviour
 
 	public ParticleSystem dustImpact;
 
+	public bool dashEnabled;
 	private bool isDashing;
 	public float dashSpeed;
 	public float dashImageSpacing;
@@ -73,6 +76,11 @@ public class CharacterController2D : MonoBehaviour
 	private void Awake()
 	{
 		Time.timeScale = 1;
+
+		sr = GetComponent<SpriteRenderer>();
+		sr.color = new Color(255, 255, 255);
+
+		dashEnabled = false;
 
 		footEmission = footsteps.emission;
 		footOverTime = footsteps.velocityOverLifetime;
@@ -252,15 +260,18 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Dash()
     {
-		isDashing = true;
-		combatController.isDashing = true;
-		dashTimeLeft = dashTime;
-		lastDash = Time.time;
+		if (dashEnabled)
+		{
+			isDashing = true;
+			combatController.isDashing = true;
+			dashTimeLeft = dashTime;
+			lastDash = Time.time;
 
-		staminaController.stamina = 0;
+			staminaController.stamina = 0;
 
-		DashMotionPool.Instance.GetFromPool();
-		lastImagePos = transform.position.x;
+			DashMotionPool.Instance.GetFromPool();
+			lastImagePos = transform.position.x;
+        }
     }
 
 	public void KnockBack(int direction)

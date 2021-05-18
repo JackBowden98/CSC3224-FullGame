@@ -7,6 +7,10 @@ public class SoulGem : MonoBehaviour
     [SerializeField] private float maxHealth;
     private float currentHealth;
 
+    public GameObject player;
+    private CharacterController2D cc;
+    private SpriteRenderer sr;
+
     bool destroyable;
     int soulCount;
     public GameObject souls;
@@ -15,6 +19,9 @@ public class SoulGem : MonoBehaviour
 
     void Start()
     {
+        cc = player.GetComponent<CharacterController2D>();
+        sr = player.GetComponent<SpriteRenderer>();
+
         currentHealth = maxHealth;
         hitPause = GetComponent<HitPause>();
         destroyable = false;
@@ -37,18 +44,24 @@ public class SoulGem : MonoBehaviour
 
             if (currentHealth <= 0.0f)
             {
-                string level = "Complete";
-                // go to complete screen
-                LevelComplete(level);
+                cc.dashEnabled = true;
+                sr.color = new Color(0, 255, 0);
+
+                Destroy(gameObject);
+                //string level = "Complete";
+                //LevelComplete(level);
             }
         }
 
     }
 
+    /*
     public void LevelComplete(string level)
     {
         Application.LoadLevel(level);
     }
+    */
+    
 
     public void setDestroyable()
     {

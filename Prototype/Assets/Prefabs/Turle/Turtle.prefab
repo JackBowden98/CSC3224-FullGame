@@ -285,9 +285,9 @@ MonoBehaviour:
   upsideDownCheck: {fileID: 769674436390346625}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 535
+    m_Bits: 512
   groundCheckDistance: 3
-  wallCheckDistance: 0.1
+  wallCheckDistance: 0.17
   upsideDownCheckDistance: 0.79
   movementSpeed: 3.5
   maxHealth: 100
@@ -295,7 +295,7 @@ MonoBehaviour:
   knockbackSpeed: {x: 6, y: 7}
   applyDamageCheck: {fileID: 769674436482433615}
   lastApplyDamageTime: 0
-  applyDamageCooldown: 0.5
+  applyDamageCooldown: 1
   applyDamage: 15
   applyDamageWidth: 1.62
   applyDamageHeight: 0.95

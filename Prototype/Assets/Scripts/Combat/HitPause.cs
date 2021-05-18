@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitPause : MonoBehaviour
 {
-    public float duration = 1f;
+    public float duration = 0.1f;
     bool isPause = false;
     float pendingPauseDuration = 0f;
     // Update is called once per frame
