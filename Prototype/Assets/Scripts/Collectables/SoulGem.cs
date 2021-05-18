@@ -35,18 +35,17 @@ public class SoulGem : MonoBehaviour
 
     private void Damage(float[] attackDetails)
     {
+        FindObjectOfType<AudioManager>().Play("GemHit");
         if (destroyable)
         {
 
             // 0 in the array is the amount of damage being recieved
             currentHealth -= attackDetails[0];
-
-
+            FindObjectOfType<AudioManager>().Play("GemBreak");
             if (currentHealth <= 0.0f)
             {
                 cc.dashEnabled = true;
                 sr.color = new Color(0, 255, 0);
-
                 Destroy(gameObject);
                 //string level = "Complete";
                 //LevelComplete(level);

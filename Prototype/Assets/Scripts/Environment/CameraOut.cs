@@ -13,7 +13,7 @@ public class CameraOut : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (zoomIn && !zoomOut)
+        if (zoomIn)
         {
             vcam.m_Lens.OrthographicSize = vcam.m_Lens.OrthographicSize - 2 * Time.deltaTime;
             if (vcam.m_Lens.OrthographicSize < originalSize)
@@ -22,7 +22,7 @@ public class CameraOut : MonoBehaviour
             }
         }
 
-        if (!zoomIn && zoomOut)
+        if (zoomOut)
         {
             vcam.m_Lens.OrthographicSize = vcam.m_Lens.OrthographicSize + 2 * Time.deltaTime;
             if (vcam.m_Lens.OrthographicSize > maxSize)

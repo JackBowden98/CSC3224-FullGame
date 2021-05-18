@@ -190,13 +190,14 @@ MonoBehaviour:
   isFlipped: 0
   applyDamageCooldown: 0
   attackOffset: {x: 0, y: 0, z: 0}
-  attackRange: 3.5
+  attackRange: 3.6
   attackDamage: 20
+  HealthUI: {fileID: 0}
   attackPos: {fileID: 7911708251315594039}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 4096
-  maxHealth: 0
+  maxHealth: 200
   currentHealth: 0
 --- !u!114 &657356836116237558
 MonoBehaviour:

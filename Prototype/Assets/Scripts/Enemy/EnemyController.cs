@@ -110,6 +110,7 @@ public class EnemyController : MonoBehaviour
         rb.velocity = movement;
         rb.angularVelocity = 300f;
         anim.SetBool("Knockback", true);
+        //hitPause.Pause();
     }
 
     private void UpdateKnockbackState()
@@ -173,13 +174,15 @@ public class EnemyController : MonoBehaviour
             // enemy is still alive
             if (currentHealth > 0.0f)
             {
-                hitPause.Pause();
                 SwitchState(State.Knockback);
             }
             else if (currentHealth <= 0.0f)
             {
                 //hitPause.Pause();
-                SwitchState(State.Dead);
+                //SwitchState(State.Dead);
+
+                GameObject soul = Instantiate(theSoulDrop, soulDropPoint.position, soulDropPoint.rotation);
+                Destroy(gameObject);
             }
         }
 

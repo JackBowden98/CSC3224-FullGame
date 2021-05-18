@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField] private Transform m_HitCheck;
     [SerializeField] private float k_HitRadius;
     [SerializeField] private LayerMask m_WhatIsDamagable;
+
+    public CinemachineVirtualCamera cam;
 
     // if there is an iput and is attacking
     private bool gotInput;
@@ -129,7 +132,6 @@ public class PlayerCombatController : MonoBehaviour
         {
             currentHealth -= attackDetails[0];
             int direction;
-            hitPause.Pause();
             Health.instance.SetHealth(currentHealth);
 
             if (attackDetails[1] < transform.position.x)
@@ -140,11 +142,16 @@ public class PlayerCombatController : MonoBehaviour
             {
                 direction = -1;
             }
-            System.Console.WriteLine(currentHealth);
             cc.KnockBack(direction);
+            hitPause.Pause();
+            cam.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
 
             if (currentHealth <= 0.0f)
             {
+                if ((PlayerPrefs.GetInt("HighScore") < CollectableManager.instance.souls))
+                {
+                    PlayerPrefs.SetInt("HighScore", CollectableManager.instance.souls);
+                }
                 string level = "Death";
                 // go to complete screen
                 Application.LoadLevel(level);

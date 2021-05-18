@@ -25,7 +25,7 @@ public class Stamina : MonoBehaviour
         else
         {
             RingStaminaBar.enabled = true;
-            Heal(1.2f);
+            Heal(1.5f);
         }
 
         lerpSpeed = 7f * Time.fixedDeltaTime;

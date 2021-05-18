@@ -8,6 +8,10 @@ public class DeathBox : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            if ((PlayerPrefs.GetInt("HighScore") < CollectableManager.instance.souls))
+            {
+                PlayerPrefs.SetInt("HighScore", CollectableManager.instance.souls);
+            }
             string level = "Death";
             Application.LoadLevel(level);
         }

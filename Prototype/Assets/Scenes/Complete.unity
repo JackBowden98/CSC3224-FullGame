@@ -314,10 +314,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 32
+    m_Font: {fileID: 12800000, guid: cec94b5a03bc26644b7a0dca6a0d20a0, type: 3}
+    m_FontSize: 48
     m_FontStyle: 0
-    m_BestFit: 1
+    m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 100
     m_Alignment: 4
@@ -834,12 +834,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 22
+    m_Font: {fileID: 12800000, guid: cec94b5a03bc26644b7a0dca6a0d20a0, type: 3}
+    m_FontSize: 36
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 226
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -884,6 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9a58ad1317adc41b9d7f87720b3dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soulText: {fileID: 0}
 --- !u!4 &1366439673
 Transform:
   m_ObjectHideFlags: 0

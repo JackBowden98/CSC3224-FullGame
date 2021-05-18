@@ -80,7 +80,7 @@ public class MushersBehaviour : MonoBehaviour
         if (gameObject != null)
         {
             FindObjectOfType<AudioManager>().Play("SwordHitMusher");
-            hitPause.Pause();
+            //hitPause.Pause();
             // 0 in the array is the amount of damage being recieved
             currentHealth -= attackDetails[0];
             MushersHealth.instance.SetHealth(currentHealth);
@@ -103,7 +103,12 @@ public class MushersBehaviour : MonoBehaviour
             else if (currentHealth <= 0.0f)
             {
                 HealthUI.SetActive(false);
-                Destroy(gameObject);
+                //Destroy(gameObject);
+                if ((PlayerPrefs.GetInt("HighScore") < CollectableManager.instance.souls))
+                {
+                    PlayerPrefs.SetInt("HighScore", CollectableManager.instance.souls);
+                }
+                Application.LoadLevel("Complete");
             }
         }
 

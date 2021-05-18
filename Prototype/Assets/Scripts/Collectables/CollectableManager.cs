@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class CollectableManager : MonoBehaviour
 {
     public static CollectableManager instance;
-    [SerializeField] private int souls = 0;
+    public int souls = 0;
     [SerializeField] private Text soulText;
     public SoulGem soulGem;
     public bool cheatAllSouls;
 
-    public int maxSouls = 9;
+    public int maxSouls = 10;
 
 
     // Start is called before the first frame update
